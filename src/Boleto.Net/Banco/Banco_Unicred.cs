@@ -275,7 +275,7 @@ namespace BoletoNet
             return d1 + d2;
         }
 
-        protected static int Mod11UniCred(string seq)
+        protected static int Mod11UniCred(string seq, bool ehBarcode)
         {
             /* Variaveis
              * -------------
@@ -297,8 +297,17 @@ namespace BoletoNet
             }
 
             d = 11 - (s % 11);
-            if (d == 0 || d == 10)
-                d = 0;
+            if (ehBarcode)
+            {
+                if (d == 0 || d >= 10)
+                    d = 1;
+            }
+            else
+            {
+                if (d == 0 || d >= 10)
+                    d = 0;
+            }
+
             return d;
         }
 
